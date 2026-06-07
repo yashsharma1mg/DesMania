@@ -1,0 +1,133 @@
+/* Dopamine 2.0 — CSS Custom Properties
+   Source of truth: tokens/tokens.json
+   Import this once at your app root before any component styles. */
+
+:root {
+  /* ─── Background ──────────────────────────────── */
+  --color-bg-primary:  #FFFFFF;
+  --color-bg-subtle:   #EEF1F5;
+  --color-bg-moderate: #DDE2EB;
+  --color-bg-disabled: #A2A9B8;
+
+  /* ─── Content ─────────────────────────────────── */
+  --color-content-primary:   #181A1F;
+  --color-content-secondary: #414752;
+  --color-content-tertiary:  #868E9E;
+  --color-content-inverse:   #FFFFFF;
+  --color-content-disabled:  #868E9E;
+  --color-content-cta:       #FF5443;
+
+  /* ─── Border ──────────────────────────────────── */
+  --color-border-subtle:        #DDE2EB;
+  --color-border-moderate:      #BEC5D1;
+  --color-border-high-contrast: #868E9E;
+
+  /* ─── Divider ─────────────────────────────────── */
+  --color-divider-subtle:   #DDE2EB;
+  --color-divider-moderate: #BEC5D1;
+
+  /* ─── States ──────────────────────────────────── */
+  --color-state-success: #308956;
+  --color-state-offer:   #308956;
+  --color-state-error:   #A3111E;
+  --color-state-warning: #BF9514;
+
+  /* ─── Brand ───────────────────────────────────── */
+  --color-brand-1mg:            #FF5443;
+  --color-brand-quick-commerce: #9D59A8;
+  --color-brand-care-plan:      #903E38;
+  --color-brand-corporate:      #086E78;
+
+  /* ─── Badge (SPRING legacy palette) ──────────── */
+  --color-badge-ember:   #C2463E;
+  --color-badge-aqua:    #009DA5;
+  --color-badge-royal:   #6A47B4;
+  --color-badge-crimson: #DA2864;
+  --color-badge-molten:  #5B0400;
+
+  /* ─── Space ───────────────────────────────────── */
+  --space-0:  0px;
+  --space-2:  2px;
+  --space-4:  4px;
+  --space-8:  8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+  --space-36: 36px;
+  --space-40: 40px;
+
+  /* ─── Radius ──────────────────────────────────── */
+  --radius-0:    0px;
+  --radius-2:    2px;
+  --radius-4:    4px;
+  --radius-8:    8px;
+  --radius-12:   12px;
+  --radius-16:   16px;
+  --radius-24:   24px;
+  --radius-full: 9999px;
+
+  /* ─── Font Family ─────────────────────────────── */
+  --font-display: 'Cabinet Grotesk', 'Figtree', system-ui, sans-serif;
+  --font-sans:    'Figtree', system-ui, sans-serif;
+
+  /* ─── Font Size ───────────────────────────────── */
+  --fs-display-45: 45px;
+  --fs-display-36: 36px;
+  --fs-display-24: 24px;
+  --fs-heading-32: 32px;
+  --fs-heading-28: 28px;
+  --fs-heading-24: 24px;
+  --fs-heading-18: 18px;
+  --fs-title-22:   22px;
+  --fs-title-16:   16px;
+  --fs-body-16:    16px;
+  --fs-body-14:    14px;
+  --fs-body-12:    12px;
+  --fs-tag-11:     11px;
+
+  /* ─── Font Weight ─────────────────────────────── */
+  --fw-light:     300;
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-bold:      700;
+  --fw-extrabold: 800;
+
+  /* ─── Line Height ─────────────────────────────── */
+  --lh-16: 16px;
+  --lh-20: 20px;
+  --lh-24: 24px;
+  --lh-28: 28px;
+  --lh-32: 32px;
+  --lh-36: 36px;
+  --lh-40: 40px;
+  --lh-44: 44px;
+  --lh-52: 52px;
+
+  /* ─── Letter Spacing ──────────────────────────── */
+  --ls-0: 0em;
+  --ls-3: 0.2em;   /* 3px at 14px base */
+
+  /* ─── Shadows ─────────────────────────────────── */
+  --shadow-1:    0 2px 4px 0 rgba(39, 43, 51, 0.06);
+  --shadow-1-iy: 0 -2px 4px 0 rgba(39, 43, 51, 0.06);
+  --shadow-2:    0 4px 12px 0 rgba(39, 43, 51, 0.08);
+  --shadow-2-iy: 0 -4px 12px 0 rgba(39, 43, 51, 0.08);
+}
+
+/* ─── Base reset scoped to 360px mobile shell ──── */
+.dopamine-shell {
+  width: 360px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body-14);
+  color: var(--color-content-primary);
+  background: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow-x: hidden;
+}

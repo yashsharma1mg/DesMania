@@ -1,0 +1,6 @@
+<svg width="82" height="14" viewBox="0 0 82 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="82" height="14" rx="3" fill="#FFF1EF"/>
+  <path d="M6 4H17" stroke="#FF5443" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M11.5 4V10" stroke="#FF5443" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="22" y="10" fill="#181A1F" font-family="Figtree, Arial, sans-serif" font-size="8" font-weight="700">TATA 1mg Labs</text>
+</svg>

@@ -1,0 +1,174 @@
+/* Dopamine 2.0 — Button
+   Spec: specs/Button.md */
+
+.base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  border: none;
+  border-radius: var(--radius-8);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body-14);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-20);
+  letter-spacing: var(--ls-0);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.1s ease;
+  position: relative;
+}
+
+.base:focus-visible {
+  outline: 2px solid var(--color-border-high-contrast);
+  outline-offset: 2px;
+}
+
+.base[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* ── Sizes ────────────────────────────────────── */
+/* large: py-12 + lh-20 = 44px total → meets 44px touch target */
+.sizeLarge {
+  padding: var(--space-12) var(--space-16);
+  min-height: 44px;
+}
+
+/* medium: 10px + lh-20 = 40px — use sparingly in dense contexts */
+.sizeMedium {
+  padding: 10px var(--space-16);
+  min-height: 40px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.loading {
+  pointer-events: none;
+}
+
+/* ── Fill variants ────────────────────────────── */
+.fillPrimary {
+  background-color: var(--color-brand-1mg);
+  color: var(--color-content-inverse);
+}
+
+.fillSecondary {
+  background-color: #181A1F; /* cool-neutral.10 — deliberate primitive exception */
+  color: var(--color-content-inverse);
+}
+
+.fillInverse {
+  background-color: var(--color-bg-primary);
+  color: var(--color-content-primary);
+}
+
+.fillDisabled {
+  background-color: var(--color-bg-moderate);
+  color: var(--color-content-disabled);
+}
+
+/* ── Outline variants ─────────────────────────── */
+.outlinePrimary {
+  background-color: var(--color-bg-primary);
+  color: var(--color-brand-1mg);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.outlineDisabled {
+  background-color: var(--color-bg-primary);
+  color: var(--color-content-disabled);
+  border: 1px solid var(--color-border-subtle);
+}
+
+/* ── Ghost variants ───────────────────────────── */
+.ghostPrimary {
+  background: transparent;
+  color: var(--color-brand-1mg);
+}
+
+.ghostSecondary {
+  background: transparent;
+  color: var(--color-content-primary);
+}
+
+.ghostInverse {
+  background: transparent;
+  color: var(--color-content-inverse);
+}
+
+.ghostDisabled {
+  background: transparent;
+  color: var(--color-content-disabled);
+}
+
+/* ── Ghost underline variants ─────────────────── */
+.ghostUnderlinePrimary {
+  background: transparent;
+  color: var(--color-brand-1mg);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ghostUnderlineSecondary {
+  background: transparent;
+  color: var(--color-content-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ghostUnderlineInverse {
+  background: transparent;
+  color: var(--color-content-inverse);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ghostUnderlineDisabled {
+  background: transparent;
+  color: var(--color-content-disabled);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Icon slot ─────────────────────────────────── */
+.iconSlot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+/* ── Label ─────────────────────────────────────── */
+.label {
+  min-width: 44px;
+  max-width: 296px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Loading spinner ───────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: dopamineSpin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes dopamineSpin {
+  to { transform: rotate(360deg); }
+}

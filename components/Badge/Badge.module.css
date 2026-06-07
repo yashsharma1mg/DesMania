@@ -1,0 +1,107 @@
+/* Dopamine 2.0 — Badge
+   Spec: specs/Badge.md */
+
+/* ─── Info badge ──────────────────────────────── */
+.info {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-8);
+  border-radius: var(--radius-4);
+  font-family: var(--font-sans);
+  font-size: var(--fs-tag-11);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-16);
+  white-space: nowrap;
+}
+
+/* Background tint technique: text color at 10% opacity over white */
+.infoEmber {
+  color: var(--color-badge-ember);
+  background-image:
+    linear-gradient(rgba(194, 70, 62, 0.1), rgba(194, 70, 62, 0.1)),
+    linear-gradient(#fff, #fff);
+}
+
+.infoAqua {
+  color: var(--color-badge-aqua);
+  background-image:
+    linear-gradient(rgba(0, 157, 165, 0.1), rgba(0, 157, 165, 0.1)),
+    linear-gradient(#fff, #fff);
+}
+
+.infoRoyal {
+  color: var(--color-badge-royal);
+  background-image:
+    linear-gradient(rgba(106, 71, 180, 0.1), rgba(106, 71, 180, 0.1)),
+    linear-gradient(#fff, #fff);
+}
+
+.infoCrimson {
+  color: var(--color-badge-crimson);
+  background-image:
+    linear-gradient(rgba(218, 40, 100, 0.1), rgba(218, 40, 100, 0.1)),
+    linear-gradient(#fff, #fff);
+}
+
+.infoMolten {
+  color: var(--color-badge-molten);
+  background-image:
+    linear-gradient(rgba(91, 4, 0, 0.1), rgba(91, 4, 0, 0.1)),
+    linear-gradient(#fff, #fff);
+}
+
+/* sold-out uses a solid comfort-pink background */
+.infoSoldOut {
+  color: var(--color-state-error);
+  background-color: #F9CFE3; /* comfort-pink.90 from tokens.json */
+}
+
+.infoSuccess {
+  color: var(--color-content-inverse);
+  background-color: #156437; /* wellness-green.30 */
+}
+
+/* ─── Rating badge ────────────────────────────── */
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-4);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body-12);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-16);
+  color: var(--color-content-inverse);
+  white-space: nowrap;
+}
+
+.ratingGreen  { background-color: #156437; } /* wellness-green.30 */
+.ratingYellow { background-color: var(--color-state-warning); }
+.ratingRed    { background-color: var(--color-state-error); }
+
+/* ─── Notification badges ─────────────────────── */
+.notificationNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-8);
+  background-color: var(--color-brand-1mg);
+  color: var(--color-content-inverse);
+  font-family: var(--font-sans);
+  font-size: var(--fs-tag-11);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-16);
+  white-space: nowrap;
+}
+
+.notificationDot {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-8);
+  background-color: var(--color-brand-1mg);
+}
