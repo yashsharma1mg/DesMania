@@ -1,6 +1,6 @@
 # DesMania
 
-DesMania is a documented, high-fidelity React prototype for the Diagnostics Ideal Checkout flow. It was built for a fixed 360px mobile canvas and preserves both the final coded experience and the design-system reasoning that led to it.
+DesMania is a documented, React prototype for the Diagnostics Ideal Checkout flow. It was built for a fixed 360px mobile canvas and preserves both the final coded experience and the design-system reasoning that led to it.
 
 This repository is not only a runnable prototype. It is also a record of how the checkout screens were deconstructed, specified, audited, implemented, iterated, and verified.
 
