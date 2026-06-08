@@ -1,65 +1,96 @@
 # DesMania
 
-High-fidelity React prototype for the Diagnostics Ideal Checkout flow, built for a fixed 360px mobile canvas.
+DesMania is a documented, high-fidelity React prototype for the Diagnostics Ideal Checkout flow. It was built for a fixed 360px mobile canvas and preserves both the final coded experience and the design-system reasoning that led to it.
 
-The repository contains the runnable Vite app, local checkout assets, design-system component specs, build cache notes, flow documentation, and QA output screenshots.
+This repository is not only a runnable prototype. It is also a record of how the checkout screens were deconstructed, specified, audited, implemented, iterated, and verified.
 
-## Quick Start
+## 1. What This System Is
 
-```bash
-npm install
-npm run dev
-```
+DesMania has two connected systems working together:
 
-Open the local URL printed by Vite, usually:
+1. **Design-system knowledge system**
+   - Converts Figma/UI decisions into reusable specs.
+   - Stores token references, component behavior, accessibility rules, and implementation constraints.
+   - Keeps a cache of design decisions and token audit results so future work can build on prior work.
+
+2. **Runnable checkout prototype**
+   - Implements the Diagnostics Checkout happy path in Vite, React, TypeScript, and CSS Modules.
+   - Uses a fixed 360px mobile shell for fidelity with the original mobile designs.
+   - Provides both the current checkout flow and an alternate preparation guide preview.
+
+The system works because design decisions are captured before and alongside implementation. Specs and cache files explain what should be built; React components show how those decisions were translated into a working prototype.
+
+## 2. Core Repository Layers
 
 ```text
-http://127.0.0.1:5173/
+tokens/                Design token source of truth and token hierarchy notes
+specs/                 Component and checkout screen specifications
+cache/                 Token audits, build decisions, and prior component memory
+flows/                 End-to-end Diagnostics Checkout flow model
+skills/                Reusable workflow instructions for Figma-to-spec work
+components/            Shared primitives such as Button, Badge, and Icon
+src/checkout/          Checkout app, local state machine, screens, and sheets
+src/assets/checkout/   Local checkout assets and Figma-extracted illustrations
+docs/                  Handoff documentation and QA outputs
 ```
 
-For production validation:
+Each layer has a different job. Tokens define the available design language. Specs describe the component or screen. Cache files explain what was found and audited. The React app implements the flow. Docs summarize how everything works and what changed.
 
-```bash
-npm run build
-```
+## 3. Skills Used In This Project
 
-## Preview Modes
+The `skills/` directory documents the repeatable workflow used to move from design inspection to implementation-ready documentation.
 
-The app renders a control outside the 360px mobile shell:
+### `ds-team`
 
-- `Current checkout`: the primary cart-to-booking happy path.
-- `Prep Guide Sheet v2`: an alternate bottom-sheet preparation guide preview over the cart.
+`skills/ds-team.md` is the orchestrator.
 
-The external toggle is intentionally outside the app shell so it does not affect the 360px mobile screen fidelity.
+It helps by coordinating the full design-system workflow:
 
-## System Fundamentals
+- Loads existing cache files so new work inherits prior decisions.
+- Reads token references from `tokens/tokens.json`.
+- Delegates Figma interpretation to `component-god`.
+- Delegates token validation to `token-police`.
+- Produces cache files that preserve the audit trail.
 
-DesMania has two connected layers:
+This is useful because a checkout flow has many related components. Without orchestration, every component can drift in naming, spacing, token usage, and interaction rules. `ds-team` keeps the work coherent.
 
-1. **Design-system knowledge layer**
-   - `tokens/` stores the design token lookup table and token hierarchy.
-   - `specs/` stores human and machine-readable component specifications.
-   - `cache/` stores build notes, token audits, and decisions from prior component deconstruction.
-   - `flows/` stores the product flow model for Diagnostics Checkout.
+### `component-god`
 
-2. **Runnable prototype layer**
-   - `src/checkout/` turns the checkout flow into React screens and bottom sheets.
-   - `components/` provides shared primitives such as Button, Badge, and Icon.
-   - `src/assets/checkout/` keeps local brand, illustration, and checkout assets.
-   - The app uses a small local state machine instead of a backend or router.
+`skills/component-god.md` is the spec writer.
 
-The key idea is that implementation does not start from a blank page. The repository captures design decisions as specs and cache files first, then the React prototype implements those documented decisions. This makes the prototype easier to audit, revise, and hand off.
+It helps by translating a Figma frame into a complete component spec:
 
-## How The Checkout Prototype Works
+- Component name and prompt aliases.
+- Variant dimensions.
+- HTML semantics.
+- Sub-elements and slots.
+- Auto-layout spacing and padding.
+- Interactive states.
+- Accessibility expectations.
+- Token references for colors, type, space, radius, and shadows.
 
-`CheckoutApp` owns the checkout state:
+It intentionally does not write code. That separation matters: first the design is converted into a stable specification, then the implementation follows that specification.
 
-- `previewMode`: switches between `Current checkout` and `Prep Guide Sheet v2`.
-- `page`: switches between the Cart page and Choose Address page.
-- `sheet`: controls active bottom sheets such as Select Patient, Add Patient, Select Slot, and Booking Details.
-- Local IDs track selected patients, address, slot, day, additional services, and bill summary expansion.
+### `token-police`
 
-The primary happy path is:
+`skills/token-police.md` is the deterministic token auditor.
+
+It helps by checking that the spec is actually compatible with the token system:
+
+- Verifies every `token.*` reference exists in `tokens/tokens.json`.
+- Flags literal hex values in specs.
+- Checks required focus and disabled state fields.
+- Reports missing tokens instead of inventing substitutes.
+
+This prevents hidden design-system drift. If a color or spacing value has no semantic token, the gap is documented instead of silently hard-coded.
+
+## 4. Step-By-Step Work We Followed
+
+### Step 1: Deconstructed the Diagnostics Checkout flow
+
+The checkout journey was mapped into `flows/DiagnosticsCheckout.md`.
+
+The happy path is:
 
 ```text
 Cart
@@ -70,111 +101,201 @@ Cart
   -> Booking Details sheet
 ```
 
-The prototype is fixed to a 360px mobile shell. Bottom sheets are anchored inside that shell, while the preview toggle is intentionally outside the shell so QA can compare alternate screens without changing the mobile canvas.
+Payment and Booking Summary were kept out of scope because those screens were not deconstructed for this milestone.
 
-## Skills And Why They Help
+### Step 2: Captured component specs and cache notes
 
-The `skills/` directory documents the repeatable design-system workflow used to turn Figma screens into implementation-ready specs.
+Reusable components and checkout-specific pieces were documented under `specs/` and `cache/`.
 
-### `ds-team`
+Examples include:
 
-`skills/ds-team.md` is the orchestrator. It coordinates the full workflow from a Figma link to an audited component spec and cache file.
+- `AppHeader`
+- `SavingsBanner`
+- `LabTestCard`
+- `PreparationAlertBanner`
+- `AdditionalServicesRow`
+- `BillSummaryCard`
+- `StickyBottomBar`
+- `BottomSheet`
+- `AccordionCard`
+- `SummaryRow`
+- `TimeSlotRow`
 
-It helps because it enforces the same sequence every time:
+The cache layer records token audits, missing token notes, measured values, and decisions made during deconstruction.
 
-- Load previous cache and token memory.
-- Read the Figma design.
-- Run the spec-writing process.
-- Run the token audit.
-- Write a cache file that captures decisions and unresolved issues.
+### Step 3: Built the React prototype
 
-This prevents each component from being interpreted in isolation. New work inherits prior token choices, naming decisions, and known component constraints.
+The runnable app was implemented in `src/checkout/CheckoutApp.tsx` and styled in `src/checkout/CheckoutApp.module.css`.
 
-### `component-god`
+The app uses local React state instead of a backend:
 
-`skills/component-god.md` is the spec writer. Its job is to inspect a Figma frame and produce a complete `specs/{ComponentName}.md` file.
+- `previewMode`: switches between current checkout and Prep Guide Sheet v2.
+- `page`: switches between Cart and Choose Address.
+- `sheet`: controls active bottom sheets.
+- Local IDs track selected patient, address, slot, day, additional services, and bill summary expansion.
 
-It helps because it translates visual design into implementation details:
+This is enough for a high-fidelity prototype because the goal is UX fidelity and flow validation, not production persistence.
 
-- Component name and prompt aliases.
-- Variants and states.
-- HTML semantics.
-- Layout, spacing, radius, and typography.
-- Accessibility rules.
-- Token references for colors, spacing, radius, shadows, and fonts.
+### Step 4: Implemented the 360px mobile shell
 
-It does not write code. That separation is deliberate: the design is first converted into a stable spec, then implementation can follow the spec.
+The prototype is fixed to a 360px-wide mobile app shell.
 
-### `token-police`
+This lets the coded screens match the mobile design assumptions:
 
-`skills/token-police.md` audits component specs against `tokens/tokens.json`.
+- Sticky app headers.
+- Sticky bottom bars.
+- Bottom sheets anchored to the mobile shell.
+- Full-screen Choose Address route.
+- No tablet or desktop responsive variants in this milestone.
 
-It helps because it catches design-system drift before code is written:
+The preview toggle is outside the mobile shell so it does not alter the screen being evaluated.
 
-- Verifies every `token.*` reference resolves.
-- Flags raw hex values in specs.
-- Checks required focus and disabled state fields.
-- Reports missing tokens instead of inventing replacements.
+### Step 5: Added local checkout assets
 
-This is why the project can safely preserve measured Figma details while still keeping the implementation tied to the design-system token model.
+Checkout assets were stored under `src/assets/checkout/` and exported through `src/assets/checkout/index.ts`.
 
-## Why This Workflow Is Useful
+This includes:
 
-The skills make the project more than a one-off prototype:
+- TATA 1mg Labs logo.
+- Lab test illustration.
+- Savings coin.
+- Coupon and NeuCoins artwork.
+- Additional services illustrations.
+- Summary row icons.
+- Weather icons.
+- Patient avatars.
 
-- **Consistency:** specs, cache files, and code refer to the same token source.
-- **Traceability:** component decisions are documented before and after implementation.
-- **Auditability:** token issues and raw values are visible in cache files.
-- **Hand-off quality:** another engineer can read the specs and docs without reverse-engineering the UI.
-- **Iteration support:** alternate UX treatments, such as the Prep Guide Sheet v2, can be added without deleting the current screen.
+Complex illustrations remain local assets. Only reusable UI symbols belong in the design-system `Icon` component.
 
-## What Is Implemented
+### Step 6: Implemented the current checkout screens
+
+The current checkout prototype includes:
 
 - Cart screen with savings, test cards, preparation alert, coupon, NeuCoins, additional services, bill summary, and sticky CTA.
-- Select Patient bottom sheet with stacked Add Patient sheet.
-- Select Slot bottom sheet with address/patient summary, day picker, time-of-day groups, slots, and high-demand badge.
+- Select Patient bottom sheet.
+- Add Patient stacked bottom sheet.
+- Select Slot bottom sheet.
 - Choose Address full-screen page.
-- Booking Details bottom sheet with summary rows and expandable bill summary.
-- Preparation guide iterations:
-  - Inline prep alert and per-test preparation guide.
-  - Separate Prep Guide Sheet v2 preview with documented DS button sizing.
+- Booking Details bottom sheet.
+- Expandable bill summary.
 
-Payment and booking summary are documented as out of scope for this milestone because those screens were not deconstructed.
+### Step 7: Iterated on preparation guide UX
 
-## Repository Structure
+Preparation guidance had multiple treatments:
 
-```text
-components/            Shared design-system primitives used by the prototype
-src/checkout/          React checkout app, local state machine, and screen/sheet components
-src/assets/checkout/   Local checkout assets and Figma-extracted illustrations
-specs/                 Component and checkout screen specifications
-cache/                 Build cache notes and token audits from the deconstruction pass
-flows/                 Flow-level diagnostics checkout documentation
-tokens/                Token references and token structure notes
-docs/                  Project documentation and QA output artifacts
-```
+1. **Earlier referenced concept**
+   - A tappable row opened a consolidated preparation bottom sheet with tabs.
+   - The repo references this as a previous design, but no full standalone implementation spec existed locally.
 
-## Documentation
+2. **Current inline preparation UX**
+   - Cart-level `PreparationAlertBanner`.
+   - Inline expanded preparation details inside each `LabTestCard`.
+   - No chevron and no interaction required to see prep details.
+
+3. **Prep Guide Sheet v2 preview**
+   - Added as a separate preview mode.
+   - Does not replace the current checkout.
+   - Shows a dimmed cart background and a preparation guide bottom sheet.
+   - Uses the shared documented `Button` component for the bottom CTA.
+
+### Step 8: Corrected UI details from QA feedback
+
+Two notable QA corrections were made:
+
+- Additional Services rows were reset from browser-default grey button styling into proper selectable white cards.
+- Prep Guide Sheet v2 CTA was corrected from an oversized custom 68px button to the documented 44px shared Button primitive.
+
+### Step 9: Verified the output
+
+Validation included:
+
+- `npm run build`.
+- Browser checks at `http://127.0.0.1:5173/`.
+- 360px app width checks.
+- No-horizontal-overflow checks.
+- Happy-path interaction checks through Booking Details.
+- Prep Guide Sheet v2 preview checks.
+- CTA measurement check: 44px height and 312px width.
+
+QA results are documented in [docs/qa-results.md](docs/qa-results.md).
+
+## 5. How The Prototype Works Internally
+
+`CheckoutApp` is the root state machine.
+
+It renders:
+
+- The external preview switcher.
+- The fixed 360px app shell.
+- The current page: Cart or Choose Address.
+- The active checkout sheet, if any.
+- The Prep Guide Sheet v2 overlay when preview mode is active.
+
+The flow is intentionally local and deterministic. There is no router, server API, or persistent database. This keeps the prototype focused on interaction quality, visual fidelity, and checkout state transitions.
+
+## 6. Preview Modes And Outputs
+
+The app has two preview modes:
+
+- `Current checkout`: the primary cart-to-booking happy path.
+- `Prep Guide Sheet v2`: alternate preparation guide bottom-sheet preview.
+
+The key visible output committed in this repo is:
+
+![Prep Guide Sheet v2 CTA QA](docs/assets/prep-guide-sheet-v2-cta-qa.png)
+
+This screenshot documents the corrected v2 prep sheet with a DS-compliant 44px CTA.
+
+## 7. What Is Included
+
+- Runnable React/Vite prototype.
+- Local checkout assets.
+- Design-system primitives.
+- Token source files.
+- Component specs.
+- Cache and token audit notes.
+- Flow documentation.
+- Detailed implementation and QA documentation.
+- GitHub publication-ready repository structure.
+
+## 8. What Is Not Included
+
+- Payment page implementation.
+- Booking Summary implementation.
+- Backend/API integration.
+- Responsive tablet/desktop layouts.
+- Persistent user/session storage.
+
+These are intentionally excluded because the milestone focused on the high-fidelity 360px diagnostics checkout happy path.
+
+## 9. Documentation Map
 
 - [Checkout Flow](docs/checkout-flow.md)
 - [Implementation Notes](docs/implementation-notes.md)
 - [Preparation Guide Iterations](docs/preparation-guide-iterations.md)
 - [QA Results](docs/qa-results.md)
 
-## Scripts
+## 10. Useful Commands
+
+The README intentionally starts with fundamentals rather than setup, but the project can still be run locally with:
 
 ```bash
-npm run dev       # Start Vite on 127.0.0.1
-npm run build     # TypeScript check and production build
-npm run preview   # Preview production build on 127.0.0.1
+npm install
+npm run dev
 ```
 
-## GitHub Publication
+Production validation:
 
-This project was prepared for publication as the public GitHub repository:
+```bash
+npm run build
+```
+
+## 11. GitHub Publication
+
+This project was prepared and pushed as the public GitHub repository:
 
 ```text
 https://github.com/yashsharma1mg/DesMania
 ```
 
-Generated dependencies and build output are intentionally excluded from Git. Source assets, specs, cache documentation, flow docs, and selected QA screenshots are committed.
+Generated dependencies and build output are intentionally excluded from Git. Source assets, specs, cache documentation, flow docs, implementation docs, and selected QA screenshots are committed.
