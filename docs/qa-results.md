@@ -30,6 +30,44 @@ Validated behaviors:
 - No horizontal overflow was detected.
 - The current checkout entry point still exposes one `Continue` CTA.
 
+## Current Checkout Page QC
+
+The full generated Current Checkout page was captured as a single 360px-wide artifact by expanding the internal app shell to the page scroll height.
+
+Measured browser result:
+
+```text
+appWidth: 360px
+appHeight: 2311px
+pageScrollHeight: 2311px
+horizontalOverflow: false
+```
+
+Validated page sections:
+
+- App header with Cart title and search action.
+- Savings banner.
+- Cart-level preparation alert.
+- Tests added section with inline preparation details.
+- Previously booked carousel.
+- Frequently booked together carousel.
+- Coupon widget.
+- NeuCoins widget.
+- Additional services section.
+- Bill summary.
+- Sticky Continue CTA.
+
+Changes represented in this generated page:
+
+- Added `PreparationAlertBanner` above the Tests added section.
+- Replaced placeholder preparation messaging with inline per-test preparation rows.
+- Preserved no-preparation state with a success checkmark row.
+- Added local Figma/checkout assets for lab, savings, coupon, NeuCoins, VAS, summary, weather, and avatar artwork.
+- Corrected Additional Services rows from browser-default grey button styling to DS-aligned selectable cards.
+- Preserved 360px shell behavior with no page-level horizontal overflow.
+
+![Current Checkout Full Page QC](assets/current-checkout-full-page-qa.png)
+
 ## Checkout Happy Path
 
 Validated flow:
@@ -60,6 +98,6 @@ appWidth: 360px
 horizontalOverflow: false
 ```
 
-## Output Screenshot
+## Prep Guide Sheet v2 Output
 
 ![Prep Guide Sheet v2 CTA QA](assets/prep-guide-sheet-v2-cta-qa.png)

@@ -213,6 +213,7 @@ Validation included:
 - Browser checks at `http://127.0.0.1:5173/`.
 - 360px app width checks.
 - No-horizontal-overflow checks.
+- Full Current Checkout page capture.
 - Happy-path interaction checks through Booking Details.
 - Prep Guide Sheet v2 preview checks.
 - CTA measurement check: 44px height and 312px width.
@@ -240,7 +241,22 @@ The app has two preview modes:
 - `Current checkout`: the primary cart-to-booking happy path.
 - `Prep Guide Sheet v2`: alternate preparation guide bottom-sheet preview.
 
-The key visible output committed in this repo is:
+The generated Current Checkout page was captured as a full 360px-wide artifact:
+
+![Current Checkout Full Page QC](docs/assets/current-checkout-full-page-qa.png)
+
+That artifact documents the complete coded Cart page, including:
+
+- Savings banner.
+- Preparation alert.
+- Test cards with inline preparation details.
+- Recommendation carousels.
+- Coupon and NeuCoins widgets.
+- Corrected Additional Services rows.
+- Bill summary.
+- Sticky Continue CTA.
+
+The alternate preparation guide output is:
 
 ![Prep Guide Sheet v2 CTA QA](docs/assets/prep-guide-sheet-v2-cta-qa.png)
 
